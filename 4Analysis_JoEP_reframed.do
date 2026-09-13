@@ -297,7 +297,8 @@ forvalues r=2/5 {
         vce(cluster session_id)
     margins treatment#StreakTreat_R`r', ///
         saving(`"`outdir'/round`r'_streak_margins.dta"', replace)
-    marginsplot, by(treatment) title("Round `r'") note("") ///
+    marginsplot, bydimension(treatment) ///
+        byopts(title("Round `r'") note("")) ///
         recast(scatter) recastci(rcap) horizontal ///
         ytitle("") xtitle("Predicted probability of acquisition") ///
         xscale(range(0 1)) xlabel(0(.2)1) name(streakfig`r', replace)
