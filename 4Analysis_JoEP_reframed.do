@@ -299,46 +299,67 @@ forvalues r=2/5 {
     }
 
     * Treatment-cell margins for the four-panel streak figure. Each panel is
-    * one round; treatments are rows and prediction histories are markers.
+    * one round; treatments are grouped on the x axis and histories are bars.
     regress Decision`r' ib1.treatment##ib`base'.StreakTreat_R`r', ///
         vce(cluster session_id)
     margins treatment#StreakTreat_R`r', ///
         saving(`"`outdir'/round`r'_streak_margins.dta"', replace)
 
+    * r(table)' contains the margin, SE, and confidence limits for every cell.
+    * Construct explicit offsets so the bars are grouped rather than overlaid.
+    matrix margin_table = r(table)'
+    preserve
+    clear
+    svmat double margin_table, names(m)
+
+    local nhist = cond(`r'==2,2,3)
+    generate byte treatment_plot = ceil(_n/`nhist')
+    generate byte history_plot = mod(_n-1,`nhist') + 1
+    if `r'==2 replace history_plot = history_plot + 1
+    generate double xpos = treatment_plot
+
     if `r'==2 {
-        marginsplot, xdimension(treatment) ///
-            plotdimension(StreakTreat_R`r') horizontal ///
-            recast(scatter) recastci(rcap) ///
-            plot1opts(msymbol(D) mcolor(black)) ///
-            ci1opts(lcolor(black)) ///
-            plot2opts(msymbol(T) mcolor(gs8)) ///
-            ci2opts(lcolor(gs8)) ///
-            ytitle("") xtitle("Predicted probability of acquisition") ///
-            xscale(range(0 1)) xlabel(0(.2)1, format(%3.1f)) ///
-            title("Round `r'", size(medsmall)) ///
-            legend(order(1 "All correct" 2 "All incorrect") ///
-                rows(1) size(small)) ///
-            graphregion(color(white)) plotregion(color(white)) ///
+        replace xpos = xpos-.16 if history_plot==2
+        replace xpos = xpos+.16 if history_plot==3
+
+        twoway ///
+            (bar m1 xpos if history_plot==2, barwidth(.26) ///
+                fcolor(black) lcolor(black)) ///
+            (rcap m5 m6 xpos if history_plot==2, lcolor(black)) ///
+            (bar m1 xpos if history_plot==3, barwidth(.26) ///
+                fcolor(gs13) lcolor(gs8)) ///
+            (rcap m5 m6 xpos if history_plot==3, lcolor(gs8)), ///
+            xlabel(1 "P-NI" 2 "P-FI" 3 "D-NI" 4 "D-FI", labsize(small)) ///
+            xscale(range(.5 4.5)) xtitle("") ///
+            ytitle("Predicted probability of acquisition") ///
+            yscale(range(-.1 1)) ylabel(0(.2)1, format(%3.1f)) ///
+            yline(0, lcolor(gs10)) title("Round `r'", size(medsmall)) ///
+            legend(off) graphregion(color(white)) plotregion(color(white)) ///
             name(streakfig`r', replace)
     }
     else {
-        marginsplot, xdimension(treatment) ///
-            plotdimension(StreakTreat_R`r') horizontal ///
-            recast(scatter) recastci(rcap) ///
-            plot1opts(msymbol(O) mcolor(gs5)) ///
-            ci1opts(lcolor(gs5)) ///
-            plot2opts(msymbol(D) mcolor(black)) ///
-            ci2opts(lcolor(black)) ///
-            plot3opts(msymbol(T) mcolor(gs10)) ///
-            ci3opts(lcolor(gs10)) ///
-            ytitle("") xtitle("Predicted probability of acquisition") ///
-            xscale(range(0 1)) xlabel(0(.2)1, format(%3.1f)) ///
-            title("Round `r'", size(medsmall)) ///
-            legend(order(1 "Mixed" 2 "All correct" 3 "All incorrect") ///
-                rows(1) size(small)) ///
-            graphregion(color(white)) plotregion(color(white)) ///
+        replace xpos = xpos-.24 if history_plot==1
+        replace xpos = xpos+.24 if history_plot==3
+
+        twoway ///
+            (bar m1 xpos if history_plot==1, barwidth(.20) ///
+                fcolor(gs7) lcolor(gs5)) ///
+            (rcap m5 m6 xpos if history_plot==1, lcolor(gs5)) ///
+            (bar m1 xpos if history_plot==2, barwidth(.20) ///
+                fcolor(black) lcolor(black)) ///
+            (rcap m5 m6 xpos if history_plot==2, lcolor(black)) ///
+            (bar m1 xpos if history_plot==3, barwidth(.20) ///
+                fcolor(gs13) lcolor(gs8)) ///
+            (rcap m5 m6 xpos if history_plot==3, lcolor(gs8)), ///
+            xlabel(1 "P-NI" 2 "P-FI" 3 "D-NI" 4 "D-FI", labsize(small)) ///
+            xscale(range(.5 4.5)) xtitle("") ///
+            ytitle("Predicted probability of acquisition") ///
+            yscale(range(-.1 1)) ylabel(0(.2)1, format(%3.1f)) ///
+            yline(0, lcolor(gs10)) title("Round `r'", size(medsmall)) ///
+            legend(off) graphregion(color(white)) plotregion(color(white)) ///
             name(streakfig`r', replace)
     }
+    restore
 }
 
 postclose `hpost'
@@ -347,6 +368,8 @@ postclose `cpost'
 graph combine streakfig2 streakfig3 streakfig4 streakfig5, cols(2) ///
     ycommon xcommon imargin(tiny) graphregion(color(white)) ///
     title("Demand by prediction history and treatment", size(medium)) ///
+    subtitle("Black: all correct   |   Medium gray: mixed   |   Light gray: all incorrect", ///
+        size(small)) ///
     name(streak_combined, replace)
 graph export `"`outdir'/Figure2_streak_dynamics.png"', replace width(3200)
 
