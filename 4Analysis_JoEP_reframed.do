@@ -448,6 +448,11 @@ replace history = 1 if success
 replace history = 2 if failure
 label values history history_lbl
 
+* Keep a restorable copy of the long person-round data. Stata does not permit
+* a second preserve while the original participant-level data are preserved.
+tempfile personround
+save `personround', replace
+
 regress Decision i.round i.donation##i.fullinfo##(i.success i.failure), ///
     vce(cluster session_id)
 estimates store pooled_r2_r5
@@ -497,11 +502,10 @@ if `have_boottest' {
         reps(9999) seed(20262026) nograph
 }
 
-preserve
 use `poolresults', clear
 export delimited using `"`outdir'/pooled_success_contrasts.csv"', replace
 save `"`outdir'/pooled_success_contrasts.dta"', replace
-restore
+use `personround', clear
 
 * Robustness with a common mixed-history comparator: Rounds 3-5 only.
 regress Decision i.round i.donation##i.fullinfo##(i.success i.failure) ///
@@ -529,13 +533,12 @@ estimates store betsize_DFI_success
 
 * Export transparent cell counts and rates; these reproduce the 87.8% versus
 * 48.4% comparison in D-FI and show its denominator.
-preserve
 keep if success==1
 collapse (mean) follow_rate=betsame mean_log_bet=lgbetamount ///
     (count) N=betsame, by(treatment Decision)
 sort treatment Decision
 export delimited using `"`outdir'/prediction_use_after_success.csv"', replace
-restore
+use `personround', clear
 
 * Corrected round-specific association. The effect of acquisition among those
 * with a successful history is Decision + Decision x Success; it does not
@@ -553,13 +556,12 @@ forvalues r=2/5 {
 }
 postclose `usepost'
 
-preserve
 use `useresults', clear
 generate str48 contrast = "Acquirer minus non-acquirer after success"
 order round contrast estimate se p lb ub
 export delimited using `"`outdir'/prediction_reliance_association.csv"', replace
 save `"`outdir'/prediction_reliance_association.dta"', replace
-restore
+use `personround', clear
 
 ********************************************************************************
 * 8. EXPLORATORY PSYCHOLOGICAL AND SEQUENCE ANALYSES
