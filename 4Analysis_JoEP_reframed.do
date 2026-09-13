@@ -215,6 +215,12 @@ postfile `hpost' str24 hypothesis byte round double estimate se p lb ub ///
 postfile `cpost' str32 contrast byte round double estimate se p lb ub ///
     using `contrasts', replace
 
+* Short labels keep the four-panel figure readable.
+label define history_short 1 "Mixed" 2 "All correct" 3 "All incorrect", replace
+forvalues r=2/5 {
+    label values StreakTreat_R`r' history_short
+}
+
 forvalues r=2/5 {
     local base = cond(`r'==2,3,1)
     display as text _newline "===== SUCCESS-STREAK MODEL: ROUND `r' ====="
@@ -292,23 +298,55 @@ forvalues r=2/5 {
             cluster(session_id) reps(9999) seed(`=20261213+`r'') nograph
     }
 
-    * Treatment-cell margins for the four-panel streak figure.
+    * Treatment-cell margins for the four-panel streak figure. Each panel is
+    * one round; treatments are rows and prediction histories are markers.
     regress Decision`r' ib1.treatment##ib`base'.StreakTreat_R`r', ///
         vce(cluster session_id)
     margins treatment#StreakTreat_R`r', ///
         saving(`"`outdir'/round`r'_streak_margins.dta"', replace)
-    marginsplot, bydimension(treatment) ///
-        byopts(title("Round `r'") note("")) ///
-        recast(scatter) recastci(rcap) horizontal ///
-        ytitle("") xtitle("Predicted probability of acquisition") ///
-        xscale(range(0 1)) xlabel(0(.2)1) name(streakfig`r', replace)
+
+    if `r'==2 {
+        marginsplot, xdimension(treatment) ///
+            plotdimension(StreakTreat_R`r') horizontal ///
+            recast(scatter) recastci(rcap) ///
+            plot1opts(msymbol(D) mcolor(black)) ///
+            ci1opts(lcolor(black)) ///
+            plot2opts(msymbol(T) mcolor(gs8)) ///
+            ci2opts(lcolor(gs8)) ///
+            ytitle("") xtitle("Predicted probability of acquisition") ///
+            xscale(range(0 1)) xlabel(0(.2)1, format(%3.1f)) ///
+            title("Round `r'", size(medsmall)) ///
+            legend(order(1 "All correct" 2 "All incorrect") ///
+                rows(1) size(small)) ///
+            graphregion(color(white)) plotregion(color(white)) ///
+            name(streakfig`r', replace)
+    }
+    else {
+        marginsplot, xdimension(treatment) ///
+            plotdimension(StreakTreat_R`r') horizontal ///
+            recast(scatter) recastci(rcap) ///
+            plot1opts(msymbol(O) mcolor(gs5)) ///
+            ci1opts(lcolor(gs5)) ///
+            plot2opts(msymbol(D) mcolor(black)) ///
+            ci2opts(lcolor(black)) ///
+            plot3opts(msymbol(T) mcolor(gs10)) ///
+            ci3opts(lcolor(gs10)) ///
+            ytitle("") xtitle("Predicted probability of acquisition") ///
+            xscale(range(0 1)) xlabel(0(.2)1, format(%3.1f)) ///
+            title("Round `r'", size(medsmall)) ///
+            legend(order(1 "Mixed" 2 "All correct" 3 "All incorrect") ///
+                rows(1) size(small)) ///
+            graphregion(color(white)) plotregion(color(white)) ///
+            name(streakfig`r', replace)
+    }
 }
 
 postclose `hpost'
 postclose `cpost'
 
 graph combine streakfig2 streakfig3 streakfig4 streakfig5, cols(2) ///
-    ycommon xcommon title("Demand by prediction history and treatment") ///
+    ycommon xcommon imargin(tiny) graphregion(color(white)) ///
+    title("Demand by prediction history and treatment", size(medium)) ///
     name(streak_combined, replace)
 graph export `"`outdir'/Figure2_streak_dynamics.png"', replace width(3200)
 
