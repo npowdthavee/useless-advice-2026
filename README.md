@@ -1,4 +1,4 @@
-# Useless advice: 2026 replication files
+# Demand for Uninformative Predictions under Risk: Performance Histories, Transparency, and Prosocial Value -- replication files
 
 Analysis code and cleaned data for the experiment by Nattavudh Powdthavee, Yohanes E. Riyanto and Xiaojie Zhang on demand for uninformative coin-toss predictions, disclosure and charitable giving.
 
