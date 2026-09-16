@@ -1,0 +1,141 @@
+variable,label,value_labels
+Agent,,"{""1"": ""Expert"", ""2"": ""Charity""}"
+InformationLevel,,"{""1"": ""No Info"", ""2"": ""Info Disclosure""}"
+Pdc_Correct1,,{}
+Pdc_Correct2,,{}
+Pdc_Correct3,,{}
+Pdc_Correct4,,{}
+Pdc_Correct5,,{}
+Pdt1,Our Prediction,"{""1"": ""Head"", ""0"": ""Tail""}"
+Pdt2,Our Prediction,"{""1"": ""Head"", ""0"": ""Tail""}"
+Pdt3,Our Prediction,"{""1"": ""Head"", ""0"": ""Tail""}"
+Pdt4,Our Prediction,"{""1"": ""Head"", ""0"": ""Tail""}"
+Pdt5,Our Prediction,"{""1"": ""Head"", ""0"": ""Tail""}"
+Coin1,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Coin2,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Coin3,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Coin4,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Coin5,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Decision1,,"{""0"": ""Purchased/donated=0"", ""1"": ""Purchased/donated=1""}"
+Decision2,,"{""0"": ""Purchased/donated=0"", ""1"": ""Purchased/donated=1""}"
+Decision3,,"{""0"": ""Purchased/donated=0"", ""1"": ""Purchased/donated=1""}"
+Decision4,,"{""0"": ""Purchased/donated=0"", ""1"": ""Purchased/donated=1""}"
+Decision5,,"{""0"": ""Purchased/donated=0"", ""1"": ""Purchased/donated=1""}"
+BetAmount1,,{}
+BetAmount2,,{}
+BetAmount3,,{}
+BetAmount4,,{}
+BetAmount5,,{}
+Bet1,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Bet2,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Bet3,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Bet4,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Bet5,,"{""1"": ""Head"", ""0"": ""Tail""}"
+Session,,{}
+statistics_score,Number of Questions Answered Correctly in Probability Test,{}
+WrongNum,Number of Questions Answered Incorrectly in Probability Test,{}
+BlankNum,Number of Questions Unanswered in Probability Test,{}
+ExchangeRate,,{}
+TimeOKProbabilityTestQ1Q5OK,,{}
+TimeOKProbabilityTestQ6Q10OK,,{}
+Earning2,Earning in Probability Test,{}
+TimeClickToProCorrectAnswersOK,,{}
+Choice1,"Option A ($1) or B($3 with 0%,  $0 with 100% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice2,"Option A ($1) or Option B($3 with 10%,  $0 with 90% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice3,"Option A ($1) or Option B($3 with 20%,  $0 with 80% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice4,"Option A ($1) or Option B($3 with 30%,  $0 with 70% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice5,"Option A ($1) or Option B($3 with 40%,  $0 with 60% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice6,"Option A ($1) or Option B($3 with 50%,  $0 with 50% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice7,"Option A ($1) or Option B($3 with 60%,  $0 with 40% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice8,"Option A ($1) or Option B($3 with 70%,  $0 with 30% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice9,"Option A ($1) or Option B($3 with 80%,  $0 with 20% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+Choice10,"Option A ($1) or Option B($3 with 90%,  $0 with 10% chance)","{""1"": ""Option A"", ""2"": ""Option B""}"
+TimeClickToProionInstructionOK,,{}
+Gender,,"{""1"": ""Male"", ""2"": ""Female"", ""3"": ""I would prefer not to say""}"
+Year,,"{""1"": ""Year 1"", ""2"": ""Year 2"", ""3"": ""Year 3"", ""4"": ""Year 4"", ""5"": ""Year 5"", ""6"": ""Postgraduate""}"
+Age,,{}
+TimeSubmitDemographicsOK,,{}
+UnderstandingLevel,,"{""1"": ""Don't understand at all"", ""2"": ""Barely understand"", ""3"": ""Have an average level of understanding"", ""4"": ""Mostly understand"", ""5"": ""Completely understand""}"
+TimeSubmitUnderstandingQnsOK,,{}
+questionorder1,,{}
+questionorder2,,{}
+questionorder3,,{}
+questionorder4,,{}
+questionorder5,,{}
+questionorder6,,{}
+questionorder7,,{}
+questionorder8,,{}
+questionorder9,,{}
+questionorder10,,{}
+KarmaBelief1,"When people are met with misfortune, they have brought it upon themselves by pre","{""1"": ""Strongly disagree"", ""2"": ""Slightly disagree"", ""3"": ""Neutral"", ""4"": ""Slightly agree"", ""5"": ""Strongly agree""}"
+KarmaBelief2,"When people experience good fortune, they have brought it upon themselves by pre","{""1"": ""Strongly disagree"", ""2"": ""Slightly disagree"", ""3"": ""Neutral"", ""4"": ""Slightly agree"", ""5"": ""Strongly agree""}"
+KarmaBelief3,"In life, everyone eventually gets what they deserve based on their deeds.","{""1"": ""Strongly disagree"", ""2"": ""Slightly disagree"", ""3"": ""Neutral"", ""4"": ""Slightly agree"", ""5"": ""Strongly agree""}"
+TimeSubmitKarmaBeliefOK,,{}
+Authority1,Locus of Control: I have little control over the things that happen to me,"{""1"": ""Strongly disagree"", ""2"": ""Disagree"", ""3"": ""Slightly disagree"", ""4"": ""Neutral"", ""5"": ""Slightly agree"", ""6"": ""Agree"", ""7"": ""Strongly agree""}"
+Authority2,Locus of Control: There is really no way I can solve some of the problems I have,"{""1"": ""Strongly disagree"", ""2"": ""Disagree"", ""3"": ""Slightly disagree"", ""4"": ""Neutral"", ""5"": ""Slightly agree"", ""6"": ""Agree"", ""7"": ""Strongly agree""}"
+Authority3,Locus of Control: There is little I can do to change many of the important thing,"{""1"": ""Strongly disagree"", ""2"": ""Disagree"", ""3"": ""Slightly disagree"", ""4"": ""Neutral"", ""5"": ""Slightly agree"", ""6"": ""Agree"", ""7"": ""Strongly agree""}"
+Authority4,Locus of Control: I often feel helpless in dealing with the problems of life,"{""1"": ""Strongly disagree"", ""2"": ""Disagree"", ""3"": ""Slightly disagree"", ""4"": ""Neutral"", ""5"": ""Slightly agree"", ""6"": ""Agree"", ""7"": ""Strongly agree""}"
+Authority5,Locus of Control: Sometimes I feel that I'm being pushed around in life,"{""1"": ""Strongly disagree"", ""2"": ""Disagree"", ""3"": ""Slightly disagree"", ""4"": ""Neutral"", ""5"": ""Slightly agree"", ""6"": ""Agree"", ""7"": ""Strongly agree""}"
+Authority6,Locus of Control: What happens to me in the future mostly depends on me,"{""1"": ""Strongly disagree"", ""2"": ""Disagree"", ""3"": ""Slightly disagree"", ""4"": ""Neutral"", ""5"": ""Slightly agree"", ""6"": ""Agree"", ""7"": ""Strongly agree""}"
+Authority7,Locus of Control: I can do just about anything I really set my mind to do,"{""1"": ""Strongly disagree"", ""2"": ""Disagree"", ""3"": ""Slightly disagree"", ""4"": ""Neutral"", ""5"": ""Slightly agree"", ""6"": ""Agree"", ""7"": ""Strongly agree""}"
+TimeSubmitLocuOfControlScaleOK,,{}
+IUS1,Unforeseen events upset me greatly,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS2,It frustrates me not having all the information I need,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS3,One should always look ahead so as to avoid surprises,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS4,"A small, unforeseen event can spoil everything, even with the best of planning","{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS5,I always want to know what the future has in store for me,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS6,I can't stand being taken by surprise,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS7,I should be able to organize everything in advance,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS8,Uncertainty keeps me from living a full life,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS9,"When it's time to act, uncertainty paralyses me","{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS10,When I am uncertain I can't function very well,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS11,The smallest doubt can stop me from acting,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+IUS12,I must get away from all uncertain situations,"{""1"": ""Not at all characteristic of me"", ""2"": ""Slightly characteristic of me"", ""3"": ""Somewhat characteristic of me"", ""4"": ""Mostly characteristic of me"", ""5"": ""Entirely characteristic of me""}"
+Endowment_beforeR1,,{}
+Endowment_beforeR2,,{}
+Endowment_beforeR3,,{}
+Endowment_beforeR4,,{}
+Endowment_beforeR5,,{}
+Endowment_afterR1,,{}
+Endowment_afterR2,,{}
+Endowment_afterR3,,{}
+Endowment_afterR4,,{}
+Endowment_afterR5,,{}
+StreakTreat_R2,,"{""1"": ""Not all previous predictions had been correct"", ""2"": ""All previous predictions had been correct"", ""3"": ""All previous predictions had been incorrect""}"
+StreakTreat_R3,,"{""1"": ""Not all previous predictions had been correct"", ""2"": ""All previous predictions had been correct"", ""3"": ""All previous predictions had been incorrect""}"
+StreakTreat_R4,,"{""1"": ""Not all previous predictions had been correct"", ""2"": ""All previous predictions had been correct"", ""3"": ""All previous predictions had been incorrect""}"
+StreakTreat_R5,,"{""1"": ""Not all previous predictions had been correct"", ""2"": ""All previous predictions had been correct"", ""3"": ""All previous predictions had been incorrect""}"
+switching_point,,{}
+risk_score,,{}
+treat,Treatments,"{""1"": ""Expert_NoInfo"", ""2"": ""Expert_FullInfo"", ""3"": ""Charity_NoInfo"", ""4"": ""Charity_FullInfo""}"
+karma,Scores for factor 1,{}
+authority,Scores for factor 1,{}
+iu,Scores for factor 1,{}
+Head1,,{}
+Head2,,{}
+Head3,,{}
+Head4,,{}
+Tail1,,{}
+Tail2,,{}
+Tail3,,{}
+Tail4,,{}
+madewrongbet1,,{}
+madewrongbet2,,{}
+madewrongbet3,,{}
+madewrongbet4,,{}
+madewrongbet5,,{}
+fixedbetting,,{}
+betsame1,,{}
+betsame2,,{}
+betsame3,,{}
+betsame4,,{}
+betsame5,,{}
+gambler1,,{}
+gambler2,,"{""0"": ""All previous outcomes had been mixed"", ""1"": ""A streak of heads until j-1"", ""2"": ""A streak of tails until j-1""}"
+gambler3,,"{""0"": ""All previous outcomes had been mixed"", ""1"": ""A streak of heads until j-1"", ""2"": ""A streak of tails until j-1""}"
+gambler4,,"{""0"": ""All previous outcomes had been mixed"", ""1"": ""A streak of heads until j-1"", ""2"": ""A streak of tails until j-1""}"
+lgbetamount1,,{}
+lgbetamount2,,{}
+lgbetamount3,,{}
+lgbetamount4,,{}
+lgbetamount5,,{}

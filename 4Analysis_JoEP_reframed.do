@@ -1,32 +1,9 @@
-********************************************************************************
-* WHEN TRANSPARENCY FAILS / USELESS ADVICE
-* REFRAMED ANALYSIS FOR JOURNAL OF ECONOMIC PSYCHOLOGY
-*
-* Input:  AllSession_aftercleaning_final.dta
-* Output: /Users/nattavudhpowdthavee/Library/CloudStorage/Dropbox/
-*         REStat - with NICK POWDTHAVEE/2024 Project/Cleaning and Analysis/
-*         New analysis
-*
-* Recommended invocation (place the cleaned data in the output folder):
-*   do 4Analysis_JoEP_reframed.do
-*
-* To use a cleaned dataset with a different name or location:
-*   do 4Analysis_JoEP_reframed.do "/full/path/to/cleaned_data.dta"
-*
-* Design principles implemented here
-*   1. Treatment is assigned at the session level: all primary inference is
-*      clustered by session.
-*   2. Primary causal models use only randomized treatment indicators and
-*      exogenous prediction-history categories. No post-treatment controls.
-*   3. Within-treatment streak effects do NOT include treatment main effects.
-*   4. H3 and H4 are evaluated with direct interaction/DiD tests.
-*   5. Round 1, pooled dynamics, reliance, and mechanism analyses are clearly
-*      separated into confirmatory, supporting, and exploratory sections.
-*   6. Acquiring a prediction is a choice. Reliance and bet-size regressions
-*      are descriptive associations, not causal effects of acquisition.
-*
-* Written for Stata 17 or later. Optional command: boottest (SSC).
-********************************************************************************
+* USELESS ADVICE: analysis replication, updated 16 September 2026.
+* Stata 17+. From repository folder: do 4Analysis_JoEP_reframed.do
+* Optional arguments: "input.csv" "/existing/output/folder"
+* CSV/DTA supported; boottest optional. H4 corrected to disclosure-by-donation
+* after success. Three-way history-responsiveness remains supplementary.
+* Output filenames retain JoEP for compatibility with earlier runs.
 
 version 17.0
 clear all
@@ -34,19 +11,9 @@ set more off
 set linesize 255
 set scheme s1mono
 
-* All outputs are written to this folder. Fail loudly if it is unavailable so
-* Stata cannot silently save results in whichever directory was active before.
-local analysis_dir "/Users/nattavudhpowdthavee/Library/CloudStorage/Dropbox/REStat - with NICK POWDTHAVEE/2024 Project/Cleaning and Analysis/New analysis"
-cap cd `"`analysis_dir'"'
-if _rc {
-    display as error "Could not change directory to:"
-    display as error `"`analysis_dir'"'
-    display as error "No analysis was run and no outputs were saved elsewhere."
-    exit 170
-}
-
-args datafile
-if `"`datafile'"' == "" local datafile "AllSession_aftercleaning_final.dta"
+args datafile analysis_dir
+if `"`datafile'"' == "" local datafile "AllSession_aftercleaning_final.csv"
+if `"`analysis_dir'"' == "" local analysis_dir `"`c(pwd)'"'
 local outdir `"`analysis_dir'"'
 
 capture log close _all
@@ -54,7 +21,12 @@ log using `"`outdir'/JoEP_reframed_analysis.log"', replace text name(mainlog)
 
 display as text "Input data:  `datafile'"
 display as text "Output dir:  `outdir'"
-use `"`datafile'"', clear
+if regexm(lower(`"`datafile'"'), "[.]csv$") {
+    import delimited using `"`datafile'"', clear varnames(1) case(preserve) asdouble
+}
+else {
+    use `"`datafile'"', clear
+}
 
 ********************************************************************************
 * 0. VALIDATION AND ANALYSIS VARIABLES
@@ -205,7 +177,8 @@ graph export `"`outdir'/Figure1_round1_demand.png"', replace width(2400)
 * H2a: Success-streak effect in D-NI.
 * H2b: D-NI success-streak effect minus P-NI effect.
 * H3:  P-FI success-streak effect minus P-NI effect (attenuation contrast).
-* H4:  (D-FI-D-NI) minus (P-FI-P-NI) in success-streak responsiveness.
+* H4: disclosure-by-donation contrast evaluated after success.
+* Three-way history-responsiveness contrast is supplementary.
 ********************************************************************************
 
 tempname hpost cpost
@@ -279,10 +252,15 @@ forvalues r=2/5 {
     post `cpost' ("D-FI minus P-FI") (`r') (r(estimate)) (r(se)) (r(p)) ///
         (r(lb)) (r(ub))
 
-    * H4: the actual difference-in-differences.
-    lincom 1.donation#1.fullinfo#2.StreakTreat_R`r'
+    * H4: disclosure-by-donation contrast after success.
+    lincom 1.donation#1.fullinfo + 1.donation#1.fullinfo#2.StreakTreat_R`r'
     post `hpost' ("H4_DID") (`r') (r(estimate)) (r(se)) (r(p)) (r(lb)) (r(ub))
-    post `cpost' ("H4 difference-in-differences") (`r') (r(estimate)) ///
+    post `cpost' ("H4 disclosure DID after success") (`r') (r(estimate)) ///
+        (r(se)) (r(p)) (r(lb)) (r(ub))
+
+    * Supplementary three-way contrast; not H4.
+    lincom 1.donation#1.fullinfo#2.StreakTreat_R`r'
+    post `cpost' ("Supplementary three-way") (`r') (r(estimate)) ///
         (r(se)) (r(p)) (r(lb)) (r(ub))
 
     * Small-cluster sensitivity checks for the key direct tests.
@@ -294,7 +272,7 @@ forvalues r=2/5 {
             seed(`=20261013+`r'') nograph
         boottest 1.fullinfo#2.StreakTreat_R`r', cluster(session_id) reps(9999) ///
             seed(`=20261113+`r'') nograph
-        boottest 1.donation#1.fullinfo#2.StreakTreat_R`r', ///
+        boottest 1.donation#1.fullinfo + 1.donation#1.fullinfo#2.StreakTreat_R`r' = 0, ///
             cluster(session_id) reps(9999) seed(`=20261213+`r'') nograph
     }
 

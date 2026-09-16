@@ -7,7 +7,8 @@ clear all
 set more off
 
 ** Working directory: raw Excel files, table_assign_2024.xlsx, and all outputs
-local analysis_dir "/Users/nattavudhpowdthavee/Library/CloudStorage/Dropbox/REStat - with NICK POWDTHAVEE/2024 Project/Cleaning and Analysis/New analysis"
+args analysis_dir
+if `"`analysis_dir'"' == "" local analysis_dir `"`c(pwd)'"'
 cap cd `"`analysis_dir'"'
 if _rc {
     display as error "Could not change directory to:"
